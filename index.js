@@ -20,9 +20,6 @@ app.get('/img', (req, res) => {
             request.get(req.query.url)
 		    .on('response', response => {
 		      res.setHeader('Content-Type', 'image/png');
-
-		      // pipe response to res 
-		      // since response is an http.IncomingMessage
 		      response.pipe(res);
 		    });
             db.close();
@@ -45,14 +42,8 @@ MongoClient.connect(url, {useUnifiedTopology: true}, function(err, db) {
     });
 });
 
-/*
-app.get('/',(req,res) => {
 
-
-	res.setHeader('Content-Type', 'image/png');
-	res.send('<img src="https://in.bmscdn.com/mailers/images//170501promotion/visa_pn1.jpg" />');
-})*/
-const PORT = process.env.PORT || 4000;
-app.listen(PORT,()=>{
-	console.log('Port listen to '+PORT);
+var port=Number(process.env.PORT || 4000);
+app.listen(port, () => {
+	console.log('Product server listing from port ' + port);
 })
